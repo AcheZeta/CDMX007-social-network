@@ -43,12 +43,12 @@ function saveData() {
   var userName = txtUserName.value;
   var birthday = txtBirthday.value;
   db.collection("users").add({
-    email: email,
-    password: password,
-    name: name,
-    user: userName,
-    birthday: birthday
-  })
+      email: email,
+      password: password,
+      name: name,
+      user: userName,
+      birthday: birthday
+    })
     .then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
       txtEmail.value = "";
@@ -96,22 +96,20 @@ function watcher() {
       // if(user.emailVerified == true) {
       //   window.location.replace('main.html');
       //   console.log('main.html')
-      // }
-       
+      // } 
       // if(user.emailVerified == false) {
       // console.log('verifica tu correo') 
       // }
       // User is signed in.
-
-      // var displayName = user.displayName;
-      // var email = user.email;
-      // console.log(user.emailVerified);
-      // var emailVerified = user.emailVerified;
-      // var photoURL = user.photoURL;
-      // var isAnonymous = user.isAnonymous;
-      // var uid = user.uid;
-      // var providerData = user.providerData;
-      // // ...
+      var displayName = user.displayName;
+      var email = user.email;
+      console.log(user.emailVerified);
+      var emailVerified = user.emailVerified;
+      var photoURL = user.photoURL;
+      var isAnonymous = user.isAnonymous;
+      var uid = user.uid;
+      var providerData = user.providerData;
+      // ...
     } else {
       // User is signed out.
       // ...
@@ -119,23 +117,25 @@ function watcher() {
       container.innerHTML = ``;
     }
   });
-} watcher();
+}
+watcher();
 
 const container = document.getElementById('container-feed');
 /* funcion para entar a pagina principal (feed)*/
 function loged(user) {
   var user = user;
   if (user.emailVerified) {
-     window.location.href = '#home2'
+    window.location.href = '#home2'
     // aqui va funcion para SPA
     container.innerHTML =
-    `<div><h1>feed ${user.email}</h1>
+      `<div><h1>feed ${user.email}</h1>
     <button onClick="logOut()"  class= "btn btn-action">Cerrar Sesión</button></div>`;
   }
 }
 
 /* Boton de cerrar sesión*/
 const btnLogout = document.getElementById('btnLogout');
+
 function logOut() {
   //pop up de confirmación
   firebase.auth().signOut()
@@ -151,11 +151,11 @@ function logOut() {
 /*leer documento firestone*/
 var table = document.getElementById('table2');
 db.collection("users").onSnapshot((querySnapshot) => {
-  table.innerHTML= "";
-  querySnapshot.forEach(function(doc) {
-      // doc.data() is never undefined for query doc snapshots
-      //obtiene datos de firestore y los pinta en tiempo real
-      table.innerHTML += 
+  table.innerHTML = "";
+  querySnapshot.forEach(function (doc) {
+    // doc.data() is never undefined for query doc snapshots
+    //obtiene datos de firestore y los pinta en tiempo real
+    table.innerHTML +=
       `
       <input id="nameProfile" placeholder= "Nombre completo" type="text" value="${doc.data().name}">
       <input id="user-nameProfile" placeholder= "Nombre de usuario" type="text" value="${doc.data().user}">
@@ -164,52 +164,52 @@ db.collection("users").onSnapshot((querySnapshot) => {
       <button onclick="removeUsers('${doc.id}')">Eliminar</button>
       <button onclick="editUsers('${doc.id}', '${doc.data().email}','${doc.data().name}', '${doc.data().user}', '${doc.data().birthday}')">Editar</button>
       `
-      
+
   });
 });
 
-/*función para borrar documentos*/ 
-function removeUsers(id){ 
-  db.collection("users").doc(id).delete().then(function() {
+/*función para borrar documentos*/
+function removeUsers(id) {
+  db.collection("users").doc(id).delete().then(function () {
     console.log("Document successfully deleted!");
-  }).catch(function(error) {
+  }).catch(function (error) {
     console.error("Error removing document: ", error);
   });
 }
-/*función para editar perfil*/ 
+/*función para editar perfil*/
 const txtNameProfile = document.getElementById('nameProfile');
 const txtUserNameProfile = document.getElementById('user-nameProfile');
 const txtBirthdayProfile = document.getElementById('birthdayProfile');
 const txtEmailProfile = document.getElementById('txtEmailProfile');
 const txtPasswordProfile = document.getElementById('txtPasswordProfile');
 
-function editUsers(id, email, name, user, birthday){
+function editUsers(id, email, name, user, birthday) {
   txtEmail.value = email
-  txtName.value =  name
+  txtName.value = name
   txtUserName.value = user
-  txtBirthday.value = birthday   
+  txtBirthday.value = birthday
 
-  btnSaveProfile.addEventListener('click', function(){
+  btnSaveProfile.addEventListener('click', function () {
     var washingtonRef = db.collection("users").doc(id);
-    
+
     var email = txtEmail.value
     var name = txtName.value
     var user = txtUserName.value
     var birthday = txtBirthday.value
     // Set the "capital" field of the city 'DC'
     return washingtonRef.update({
-      email: email,
-      name: name,
-      user: user,
-      birthday: birthday
-    })
-    .then(function() {
+        email: email,
+        name: name,
+        user: user,
+        birthday: birthday
+      })
+      .then(function () {
         console.log("Document successfully updated!");
-    })
-    .catch(function(error) {
+      })
+      .catch(function (error) {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
-    });
+      });
   })
 }
 
@@ -220,8 +220,8 @@ btnPost.addEventListener('click', saveDataInPostColection => {
   const txtPost = document.getElementById('txtPost')
   var post = txtPost.value;
   db.collection("post").add({
-    post: post
-  })
+      post: post
+    })
     .then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
       txtPost.value = "";
@@ -234,47 +234,48 @@ btnPost.addEventListener('click', saveDataInPostColection => {
 /*leer documento firestone*/
 var showPost = document.getElementById('showPost');
 db.collection("post").onSnapshot((querySnapshot) => {
-  showPost.innerHTML= "";
-  querySnapshot.forEach(function(doc) {
-      // doc.data() is never undefined for query doc snapshots
-      //obtiene datos de firestore y los pinta en tiempo real
-      showPost.innerHTML += `
+  showPost.innerHTML = "";
+  querySnapshot.forEach(function (doc) {
+    // doc.data() is never undefined for query doc snapshots
+    //obtiene datos de firestore y los pinta en tiempo real
+    showPost.innerHTML += `
       <div>
         <p>${doc.data().post}</p>
         <button onclick="removePost('${doc.id}')">Eliminar</button>
         <button onclick="editPost('${doc.id}', '${doc.data().post}')">Editar</button>
-      </>`  
-    });
+      </>`
+  });
 });
 
 /*editar post*/
 const btnEditPost = document.getElementById('save-post');
 const txtPostEdit = document.getElementById('txtPostEdit');
-function editPost(id, post){
+
+function editPost(id, post) {
   txtPostEdit.value = post
   console.log(txtPost.value)
-  btnEditPost.addEventListener('click', function(){
+  btnEditPost.addEventListener('click', function () {
     var postEdited = db.collection("post").doc(id);
     var post = txtPostEdit.value
 
     return postEdited.update({
-      post: post
-    })
-    .then(function() {
+        post: post
+      })
+      .then(function () {
         console.log("Document successfully updated!");
-    })
-    .catch(function(error) {
+      })
+      .catch(function (error) {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
-    });
+      });
   })
 }
 
 /*elimianr post*/
-function removePost(id){ 
-  db.collection("post").doc(id).delete().then(function() {
+function removePost(id) {
+  db.collection("post").doc(id).delete().then(function () {
     console.log("Document successfully deleted!");
-  }).catch(function(error) {
+  }).catch(function (error) {
     console.error("Error removing document: ", error);
   });
 }
