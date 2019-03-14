@@ -96,20 +96,22 @@ function watcher() {
       // if(user.emailVerified == true) {
       //   window.location.replace('main.html');
       //   console.log('main.html')
-      // } 
+      // }
+       
       // if(user.emailVerified == false) {
       // console.log('verifica tu correo') 
       // }
       // User is signed in.
-      var displayName = user.displayName;
-      var email = user.email;
-      console.log(user.emailVerified);
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
-      var providerData = user.providerData;
-      // ...
+
+      // var displayName = user.displayName;
+      // var email = user.email;
+      // console.log(user.emailVerified);
+      // var emailVerified = user.emailVerified;
+      // var photoURL = user.photoURL;
+      // var isAnonymous = user.isAnonymous;
+      // var uid = user.uid;
+      // var providerData = user.providerData;
+      // // ...
     } else {
       // User is signed out.
       // ...
