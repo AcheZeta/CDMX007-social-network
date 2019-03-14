@@ -38,6 +38,8 @@ btnSingUp.addEventListener('click', e => {
     })
 });
 /*Guarda la informacion en la bd users*/
+
+
 function saveData() {
   var email = txtEmail.value;
   var password = txtPassword.value;
@@ -127,7 +129,7 @@ const container = document.getElementById('container-feed');
 function loged(user) {
   var user = user;
   if (user.emailVerified) {
-    window.location.href = '#home2'
+     window.location.href = '#home2'
     // aqui va funcion para SPA
     container.innerHTML =
       `<div><h1>feed ${user.email}</h1>
@@ -153,19 +155,20 @@ function logOut() {
 /*leer documento firestone*/
 var table = document.getElementById('table2');
 db.collection("users").onSnapshot((querySnapshot) => {
-  table.innerHTML = "";
-  querySnapshot.forEach(function (doc) {
-    // doc.data() is never undefined for query doc snapshots
-    //obtiene datos de firestore y los pinta en tiempo real
-    table.innerHTML += `
-      <tr>
-        <td>${doc.data().email}</td>
-        <td>${doc.data().name}</td>
-        <td>${doc.data().user}</td>
-        <td>${doc.data().birthday}</td>
-        <td><button onclick="removeUsers('${doc.id}')">Eliminar</button></td>
-        <td><button onclick="editUsers('${doc.id}', '${doc.data().email}','${doc.data().name}', '${doc.data().user}', '${doc.data().birthday}')">Editar</button></td>
-      </tr>`
+  table.innerHTML= "";
+  querySnapshot.forEach(function(doc) {
+      // doc.data() is never undefined for query doc snapshots
+      //obtiene datos de firestore y los pinta en tiempo real
+      table.innerHTML += 
+      `
+      <input id="nameProfile" placeholder= "Nombre completo" type="text" value="${doc.data().name}">
+      <input id="user-nameProfile" placeholder= "Nombre de usuario" type="text" value="${doc.data().user}">
+      <input id="birthdayProfile" placeholder= "Fecha de nacimiento" type="text" value="${doc.data().birthday}">
+      <input id= "txtEmailProfile" placeholder= "Correo electrónico" type="email" value="${doc.data().email}">
+      <button onclick="removeUsers('${doc.id}')">Eliminar</button>
+      <button onclick="editUsers('${doc.id}', '${doc.data().email}','${doc.data().name}', '${doc.data().user}', '${doc.data().birthday}')">Editar</button>
+      `
+      
   });
 });
 
@@ -177,8 +180,14 @@ function removeUsers(id) {
     console.error("Error removing document: ", error);
   });
 }
-/*función para editar perfil*/
-function editUsers(id, email, name, user, birthday) {
+/*función para editar perfil*/ 
+const txtNameProfile = document.getElementById('nameProfile');
+const txtUserNameProfile = document.getElementById('user-nameProfile');
+const txtBirthdayProfile = document.getElementById('birthdayProfile');
+const txtEmailProfile = document.getElementById('txtEmailProfile');
+const txtPasswordProfile = document.getElementById('txtPasswordProfile');
+
+function editUsers(id, email, name, user, birthday){
   txtEmail.value = email
   txtName.value = name
   txtUserName.value = user
@@ -206,4 +215,70 @@ function editUsers(id, email, name, user, birthday) {
         console.error("Error updating document: ", error);
       });
   })
+}
+
+//Agregar post
+/*Guarda la informacion en la bd post*/
+const btnPost = document.getElementById('btn-post')
+btnPost.addEventListener('click', saveDataInPostColection => {
+  const txtPost = document.getElementById('txtPost')
+  var post = txtPost.value;
+  db.collection("post").add({
+    post: post
+  })
+    .then(function (docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      txtPost.value = "";
+    })
+    .catch(function (error) {
+      console.error("Error adding document: ", error);
+    });
+})
+
+/*leer documento firestone*/
+var showPost = document.getElementById('showPost');
+db.collection("post").onSnapshot((querySnapshot) => {
+  showPost.innerHTML= "";
+  querySnapshot.forEach(function(doc) {
+      // doc.data() is never undefined for query doc snapshots
+      //obtiene datos de firestore y los pinta en tiempo real
+      showPost.innerHTML += `
+      <div>
+        <p>${doc.data().post}</p>
+        <button onclick="removePost('${doc.id}')">Eliminar</button>
+        <button onclick="editPost('${doc.id}', '${doc.data().post}')">Editar</button>
+      </>`  
+    });
+});
+
+/*editar post*/
+const btnEditPost = document.getElementById('save-post');
+const txtPostEdit = document.getElementById('txtPostEdit');
+function editPost(id, post){
+  txtPostEdit.value = post
+  console.log(txtPost.value)
+  btnEditPost.addEventListener('click', function(){
+    var postEdited = db.collection("post").doc(id);
+    var post = txtPostEdit.value
+
+    return postEdited.update({
+      post: post
+    })
+    .then(function() {
+        console.log("Document successfully updated!");
+    })
+    .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+    });
+  })
+}
+
+/*elimianr post*/
+function removePost(id){ 
+  db.collection("post").doc(id).delete().then(function() {
+    console.log("Document successfully deleted!");
+  }).catch(function(error) {
+    console.error("Error removing document: ", error);
+  });
 }
