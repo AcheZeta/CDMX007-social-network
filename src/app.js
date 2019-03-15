@@ -63,6 +63,7 @@ function saveData() {
 /* Verificacion de correo electronico*/
 function verify() {
   var user = firebase.auth().currentUser;
+  console.log(user)
   user.sendEmailVerification().then(function () {
     // Email sent.
     console.log('sending email');
