@@ -1,22 +1,28 @@
-.img_nav {
-    width: 25px;
+/*Estilo container*/
+.container{
+    position: relative;
+    width: 100%;
 }
 
-/* estilos nav
-
-
+/* estilos nav */
+.img_nav{
+    width: 25px;
+} 
+.top-nav{
+    background-color: #fff;
+    width: 100%;
+}
+.top-nav>ul>li{
+    list-style-type: none;
+    width: 33.33%;
+    text-align: center;
+}
 
 
 /**** PAGES ****/
 .page {
     display: none;
-
     /* position: fixed;  or absolute if the user needs to scroll for more content */
-
-}
-
-.hide {
-    display: none;
 }
 
 .active {

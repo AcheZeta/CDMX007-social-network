@@ -232,9 +232,9 @@ const btnPost = document.getElementById('btn-post')
 btnPost.addEventListener('click', saveDataInPostColection => {
   const txtPost = document.getElementById('txtPost')
   var post = txtPost.value;
-  db.collection("post").add({
-      post: post
-    })
+  db.collection("posts").add({
+    post: post
+  })
     .then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
       txtPost.value = "";
@@ -246,12 +246,12 @@ btnPost.addEventListener('click', saveDataInPostColection => {
 
 /*leer documento firestone*/
 var showPost = document.getElementById('showPost');
-db.collection("post").onSnapshot((querySnapshot) => {
-  showPost.innerHTML = "";
-  querySnapshot.forEach(function (doc) {
-    // doc.data() is never undefined for query doc snapshots
-    //obtiene datos de firestore y los pinta en tiempo real
-    showPost.innerHTML += `
+db.collection("posts").onSnapshot((querySnapshot) => {
+  showPost.innerHTML= "";
+  querySnapshot.forEach(function(doc) {
+      // doc.data() is never undefined for query doc snapshots
+      //obtiene datos de firestore y los pinta en tiempo real
+      showPost.innerHTML += `
       <div>
         <p>${doc.data().post}</p>
         <button onclick="removePost('${doc.id}')">Eliminar</button>
@@ -285,8 +285,8 @@ function editPost(id, post) {
 }
 
 /*elimianr post*/
-function removePost(id) {
-  db.collection("post").doc(id).delete().then(function () {
+function removePost(id){ 
+  db.collection("posts").doc(id).delete().then(function() {
     console.log("Document successfully deleted!");
   }).catch(function (error) {
     console.error("Error removing document: ", error);
