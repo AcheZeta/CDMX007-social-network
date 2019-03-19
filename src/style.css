@@ -1,41 +1,34 @@
-/*Estilo container*/
-.container{
-    position: relative;
-    width: 100%;
-}
-
-/* estilos nav */
 .img_nav{
     width: 25px;
 } 
-.top-nav{
-    background-color: #fff;
-    width: 100%;
-}
-.top-nav>ul>li{
-    list-style-type: none;
-    width: 33.33%;
-    text-align: center;
-}
 
+/* estilos nav */
+
+.navbar {
+    background-color: #3AD29F
+}
 
 /**** PAGES ****/
 .page{
     display: none;
-    /* position: fixed;  or absolute if the user needs to scroll for more content */
+}
+
+.btn {
+    background-color: #3AD29F
+}
+
+.hide{
+    display: none;
 }
 .active{
     display: block; 
 }
-#home{
-    /* background-color: hsl(60, 50%, 80%); */
-}
-#list{
-    /* background-color: hsl(180, 50%, 80%); */
-}
-#detail{
-    /* background-color: hsl(240, 50%, 80%); */
-}
+#home{}
+   
+#list{}
+
+#detail{}
+
 h1{
     font-size: 2rem;
     font-weight: 600;
