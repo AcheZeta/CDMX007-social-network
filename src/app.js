@@ -213,13 +213,13 @@ function editUsers(id, email, name, user, birthday) {
   })
 }
 
-//Agregar post
+//Agregar 
 /*Guarda la informacion en la bd post*/
 const btnPost = document.getElementById('btn-post')
 btnPost.addEventListener('click', saveDataInPostColection => {
   const txtPost = document.getElementById('txtPost')
   var post = txtPost.value;
-  db.collection("post").add({
+  db.collection("posts").add({
       post: post
     })
     .then(function (docRef) {
@@ -240,7 +240,7 @@ db.collection("post").onSnapshot((querySnapshot) => {
     //obtiene datos de firestore y los pinta en tiempo real
     showPost.innerHTML += `
       <div>
-        <p>${doc.data().post}</p>
+        <p>${doc.data().posts}</p>
         <button onclick="removePost('${doc.id}')">Eliminar</button>
         <button onclick="editPost('${doc.id}', '${doc.data().post}')">Editar</button>
       </>`

@@ -175,7 +175,7 @@ _visual design_ como contraste, alineación, jerarquía, entre otros.
 
 ### Hacker edition
 
-* Crear posts con imágenes
+* Crear s con imágenes
 * Permite agregar amigos.
 * Permite eliminar amigos.
 * Permite compartir publicación (en twitter esto es retwittear, en facebook
