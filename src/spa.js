@@ -1,34 +1,36 @@
 const app = {
     pages: [],
     show: new Event('show'),
-    init: function(){
+    init: function () {
         app.pages = document.querySelectorAll('.page');
-        app.pages.forEach((pg)=>{
+        app.pages.forEach((pg) => {
             pg.addEventListener('show', app.pageShown);
         })
-        
-        document.querySelectorAll('.nav-link').forEach((link)=>{
+
+        document.querySelectorAll('.nav-link').forEach((link) => {
             link.addEventListener('click', app.nav);
+            link.addEventListener('click', watcher)
         })
+        console.log(location.hash)
         history.replaceState({}, 'Home', '#home');
         window.addEventListener('popstate', app.poppin);
     },
-    nav: function(ev){
+    nav: function (ev) {
         // const home2 = document.getElementById('home2')
         ev.preventDefault();
         let currentPage = ev.target.getAttribute('data-target');
         // if(currentPage == 'home2'){
-        //     home2.classList.add('active');
-        // } else if (currentPage == 'list'){
-            
-        // }else if (currentPage == 'detail'){
-            
-        // }
-        console.log(currentPage)
-        document.querySelector('.active').classList.remove('active');
-        document.getElementById(currentPage).classList.add('active');
-        history.pushState({}, currentPage, `#${currentPage}`);
-        document.getElementById(currentPage).dispatchEvent(app.show);
+            //     home2.classList.add('active');
+            // } else if (currentPage == 'list'){
+                
+                // }else if (currentPage == 'detail'){
+                    
+                    // }
+                    console.log(currentPage)
+                    document.querySelector('.active').classList.remove('active');
+                    document.getElementById(currentPage).classList.add('active');
+                    history.pushState({}, currentPage, `#${currentPage}`);
+                    document.getElementById(currentPage).dispatchEvent(app.show);
     },
     // pageShown: function(ev){
     //     console.log('Page', ev.target.id, 'just shown');
@@ -38,9 +40,10 @@ const app = {
     //         h.classList.remove('big');
     //     }, 1200, h1);
     // },
-    poppin: function(ev){
+    poppin: function (ev) {
+
         console.log(location.hash, 'popstate event');
-        let hash = location.hash.replace('#' ,'');
+        let hash = location.hash.replace('#', '');
         document.querySelector('.active').classList.remove('active');
         document.getElementById(hash).classList.add('active');
         console.log(hash)
@@ -50,3 +53,41 @@ const app = {
     }
 }
 document.addEventListener('DOMContentLoaded', app.init);
+
+// function watcher() {
+//     console.log('ejecutado')
+
+//     firebase.auth().onAuthStateChanged(function (user) {
+//         if (user) {
+//             console.log('usuario activo');
+//             console.log(user)
+//             loged(user);
+//             if (user.emailVerified == true) {
+//                 // window.location.replace('#home2');
+//             }
+//             if (user.emailVerified == false) {
+//                 console.log('verifica tu correo')
+//             }
+//             // User is signed in.
+//             var displayName = user.displayName;
+//             var email = user.email;
+//             console.log(user.emailVerified);
+//             var emailVerified = user.emailVerified;
+//             var photoURL = user.photoURL;
+//             var isAnonymous = user.isAnonymous;
+//             var uid = user.uid;
+//             localStorage.setItem('useruid', uid)
+//             var providerData = user.providerData;
+//         } else {
+//             console.log('no hay usuario')
+//             window.location.replace('#home');
+//             location.hash = '#home'
+//             alert('no existe usuario activo');
+//             // container.innerHTML = ``;
+//         }
+//     });
+// }
+
+//   window.addEventListener('hashchange', () => {
+//       console.log('evento')
+//   })

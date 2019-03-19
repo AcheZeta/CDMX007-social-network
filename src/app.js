@@ -6,7 +6,8 @@ const txtName = document.getElementById('name');
 const txtUserName = document.getElementById('user-name');
 const txtBirthday = document.getElementById('birthday');
 const btnSaveProfile = document.getElementById('save-profile');
-
+const locationActual = location.href;
+console.log(locationActual)
 /*Inicializacion para enlazar el proyecto a firebase */
 var config = {
   apiKey: "AIzaSyA-br4fjgN3TqUQgfE-Y2eGzfdajBuwa_Q",
@@ -20,15 +21,17 @@ firebase.initializeApp(config);
 /*nombre a la base de datos*/
 var db = firebase.firestore();
 
-/*Función observador*/
+
 function watcher() {
+  console.log('ejecutado')
+
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       console.log('usuario activo');
       console.log(user)
       loged(user);
       if (user.emailVerified == true) {
-        window.location.replace('#home2');
+        // window.location.replace('#home2');
       }
       if (user.emailVerified == false) {
         console.log('verifica tu correo')
@@ -44,14 +47,14 @@ function watcher() {
       localStorage.setItem('useruid', uid)
       var providerData = user.providerData;
     } else {
-      // User is signed out.
-      // ...
-      console.log('no existe usuario activo');
-      container.innerHTML = ``;
+      window.location.hash = "#home"
+      console.log('no hay usuario')
+      
     }
   });
+  return
 }
-watcher();
+// watcher()
 
 /*para crear usuario*/
 btnSingUp.addEventListener('click', e => {
@@ -106,7 +109,7 @@ function verify() {
   var user = firebase.auth().currentUser;
   user.sendEmailVerification().then(function () {
     // Email sent.
-    console.log('sending email');
+    alert('sending email');
   }).catch(function (error) {
     // An error happened.
     console.log(error);
@@ -142,6 +145,7 @@ function loged(user) {
     <button onClick="logOut()"  class= "btn btn-action">Cerrar Sesión</button></div>`;
   }
 }
+
 
 /* Boton de cerrar sesión*/
 const btnLogout = document.getElementById('btnLogout');
@@ -303,3 +307,5 @@ function removePost(id) {
     console.error("Error removing document: ", error);
   });
 }
+
+/*Función observador*/
