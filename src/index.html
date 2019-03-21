@@ -20,7 +20,6 @@
 <body>
     <!-- <div id="top-nav2" >   
     </div> -->
-
     <nav id="top-nav" onClick="nav()" class="top-nav">
         <div class="row">
             <ul>
@@ -35,7 +34,6 @@
             </ul>
         </div>
     </nav>
-
     <main>
         <div class="container">
             <!-- Ingreso de usuarios -->
@@ -117,9 +115,6 @@
                         <a class="logo" href="">SproutThink</a>
                     </div>
 
-                    <a id="count" class="waves-effect waves-light btn">Think</a>
-
-
                     <div id="idModal" class="modal">
                         <div class="modal-content">
                             <textarea name="" id="txtPostEdit" cols="30" rows="10"></textarea>
@@ -174,11 +169,15 @@
                     <div>
                         <p id="showPost"></p>
                 </section>
-                <div class="page" id="detail">
-                    <h1>Perfil</h1>
-                    <section id="profile">
-                        <section id="container-feed">
-                        </section>
+                <section class="page" id="detail">
+                    <div class="img-portada">
+                        <div class="img-profile">
+                            <p class="name-user">Jonh Smitch</p>
+                        </div>
+                    </div>
+                    <section id="profile" class="row profile">
+                        <div id="container-feed">
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -193,7 +192,7 @@
                         </table>
                         <button id="save-profile">Guardar</button>
                     </section>
-                </div>
+                </section>
             </div>
         </div>
     </main>
