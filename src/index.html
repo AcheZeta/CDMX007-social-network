@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,33 +12,34 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"  />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--estilos sin framework-->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- <div id="top-nav2" >   
     </div> -->
-   
-        <nav id="top-nav" onClick="nav()" class="top-nav">
+
+    <nav id="top-nav" onClick="nav()" class="top-nav">
         <div class="row">
             <ul>
                 <li id="icon-logo" class="logo col l9"><img class="img_logo" src="images/logo.jpg" alt="">
                     <a class="logo" href="">SproutThink</a></li>
-                <li class="menu col s4 m4 l1" data-target="home2"><span
-                    data-target="home2" class="nav-link img_nav home active2" id=""></span></li>
+                <li class="menu col s4 m4 l1" data-target="home2"><span data-target="home2"
+                        class="nav-link img_nav home active2" id=""></span></li>
                 <li class="menu col s4 m4 l1" data-target="list"><a href="#" data-target="list" class="nav-link"><span
-                    data-target="list" class="nav-link img_nav msg" id=""></span></a></li>
-                <li class="menu col s4 m4 l1" data-target="detail"><span
-                    data-target="detail" class="nav-link img_nav profile" id="profile"></span></li>
+                            data-target="list" class="nav-link img_nav msg" id=""></span></a></li>
+                <li class="menu col s4 m4 l1" data-target="detail"><span data-target="detail"
+                        class="nav-link img_nav profile" id="profile"></span></li>
             </ul>
         </div>
-        </nav>
-     
+    </nav>
+
     <main>
         <div class="container">
             <!-- Ingreso de usuarios -->
-             <div class="active"></div>
+            <div class="active"></div>
             <div class="page " id="home">
                 <div class="row">
                     <div class="col s6">
@@ -78,7 +80,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12 m12 l10">
-                                            <input id="birthday" type="text"  class="datepicker validate" placeholder="Fecha de nacimiento">
+                                            <input id="birthday" type="text" class="datepicker validate"
+                                                placeholder="Fecha de nacimiento">
                                             <label for="birthday"></label>
                                         </div>
                                     </div>
@@ -100,17 +103,23 @@
                         </section>
                     </div>
                     <div class="col s6">
-                        <img class="img_login materialboxed imgside" src="https://images.pexels.com/photos/414928/pexels-photo-414928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+                        <img class="img_login materialboxed imgside"
+                            src="https://images.pexels.com/photos/414928/pexels-photo-414928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
                     </div>
                 </div>
             </div>
             <!--Termina container LOGIN -->
             <div id="content">
+
                 <section class="page" id="home2">
                     <div class="nav-feed">
                         <img class="img_logo" src="images/logo.jpg" alt="">
                         <a class="logo" href="">SproutThink</a>
                     </div>
+
+                    <a id="count" class="waves-effect waves-light btn">Think</a>
+
+
                     <div id="idModal" class="modal">
                         <div class="modal-content">
                             <textarea name="" id="txtPostEdit" cols="30" rows="10"></textarea>
@@ -124,8 +133,8 @@
                             <p>¿Estás seguro de que quieres elimiar esto?</p>
                         </div>
                         <div class="modal-footer">
-                            <div id="buttonDelete"  >
-                             <a id="delete-post" class="modal-close">Aceptar</a>
+                            <div id="buttonDelete">
+                                <a id="delete-post" class="modal-close">Aceptar</a>
                             </div>
                             <a class="modal-close">Cancelar</a>
                         </div>
