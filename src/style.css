@@ -1,15 +1,25 @@
 .container{
     display: grid;
-    
 }
 
+.btn {
+    margin-top: 10%;
+}
 body{
     font-family: 'Nunito Sans', sans-serif;
 }
+.input-field>label{
+ z-index: 1;
+}
+.input-field>input{
+    position: relative;
+    z-index: 2;
+   }
 /*login*/
 .img_login{
     width: 100%;
 }
+
 /*Estilo container*/
 .container{
     position: relative;
@@ -18,7 +28,9 @@ body{
 /* estilos nav */
 .top-nav{
     position: fixed;
-    top : 0;
+    bottom : 0;
+    right: 0;
+    left: 0;
     background-color: #fff;
     z-index: 1000;
 }
@@ -40,6 +52,7 @@ body{
 .top-nav ul>.logo{
     text-align: left;
     color: #3da29f;
+    background-color: #3da29f;
     font-size: 1.3rem;
 }
 
@@ -65,9 +78,13 @@ body{
     background-image: url('images/profileblue.svg')
 }
 
+.profile-active{
+    background-image: url('images/profileblue.svg')
+}
+
 /*Container inner*/
 main {
-    margin-top:65px;
+    margin-top:1rem;
 }
 .btn-post{
     margin-top: 10px;
@@ -112,6 +129,15 @@ input.msg-title[type=text] {
 
 
 
+
+
+
+
+
+
+
+
+
 /**** PAGES ****/
 .page{
     display: none;
@@ -138,3 +164,15 @@ h1{
     font-size: 5rem;
     font-weight: 900;
 } 
+
+
+
+@media screen and (min-width:1024px){
+    .top-nav{
+        top:0;
+        bottom:auto;
+    }
+    main {
+        margin-top:2rem;
+    }
+}
