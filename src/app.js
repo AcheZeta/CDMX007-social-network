@@ -27,13 +27,14 @@ function watcher() {
      loged(user);
      window.location.href = '#home2'
      content.classList.remove('hide');
-     // if(user.emailVerified == true) {
-     //   window.location.replace('main.html');
-     //   console.log('main.html')
-     // }
-     // if(user.emailVerified == false) {
-     // console.log('verifica tu correo')
-     // }
+     if(user.emailVerified == true) {
+      //  window.location.replace('main.html');
+      //  console.log('main.html')
+
+     }
+     if(user.emailVerified == false) {
+     console.log('verifica tu correo')
+     }
      // User is signed in.
      var displayName = user.displayName;
      var email = user.email;
@@ -58,6 +59,8 @@ function watcher() {
    }
  });
 } watcher();
+ 
+ 
 /*para crear usuario*/
 btnSingUp.addEventListener('click', e => {
  const email = txtEmail.value;
@@ -114,11 +117,13 @@ function verify() {
 /* boton para iniciar sesión*/
 const txtEmail2 = document.getElementById('txtEmail2');
 const textPassword2 = document.getElementById('txtPassword2');
-
+const navMenu = document.getElementById('top-nav');
 btnLogin.addEventListener('click', e => {
+
  const email2 = txtEmail2.value;
  const pass2 = textPassword2.value;
  console.log(email2, pass2);
+
  firebase.auth().signInWithEmailAndPassword(email2, pass2).catch(function (error) {
    var errorCode = error.code;
    var errorMessage = error.message;
@@ -129,14 +134,29 @@ btnLogin.addEventListener('click', e => {
 });
 
 const container = document.getElementById('container-feed');
+// const nav2 = document.getElementById('top-nav2');
 /* funcion para entar a pagina principal (feed)*/
 function loged(user) {
  var user = user;
  if (user.emailVerified) {
     window.location.href = '#home2'
    // aqui va funcion para SPA
+//    nav2.innerHTML = ` <div class="row">
+//    <nav id="top-nav " onClick="nav()" class="top-nav ">
+//        <ul>
+//            <li id="icon-logo" class="logo col l9">SproutThink</li>
+//            <li class="menu col s4 m4 l1" data-target="home2"><span
+//                        data-target="home2" class="nav-link img_nav home active2" id=""></span></li>
+//            <li class="menu col s4 m4 l1" data-target="list"><a href="#" data-target="list" class="nav-link"><span
+//                        data-target="list" class="nav-link img_nav msg" id=""></span></a></li>
+//            <li class="menu col s4  m4 l1" data-target="detail"><span
+//                        data-target="detail" class="nav-link img_nav profile" id="profile"></span></li>
+//        </ul>
+//    </nav>
+// </div>`
    container.innerHTML =
-   `<div><h1> Hola ${user.email}</h1>
+   `
+   <div><h1> Hola ${user.email}</h1>
    <button onClick="logOut()"  class= "btn btn-action">Cerrar Sesión</button></div>`;
  }
 }
@@ -155,7 +175,19 @@ function logOut() {
    })
 }
 
-// /*leer documento firestone*/
+// function nav() {
+//  //pop up de confirmación
+//  firebase.auth().signOut()
+//    .then(function () {
+//      console.log('saliendo..')
+    
+//    })
+//    .catch(function (error) {
+//      console.log(error)
+//    })
+// }
+
+// /******************* */leer documento firestone***********/
 // var table = document.getElementById('table2');
 // db.collection("users").onSnapshot((querySnapshot) => {
 //   table.innerHTML= "";
@@ -240,6 +272,7 @@ console.log(authorUid);
    .then(function (docRef) {
      console.log("Document written with ID: ", docRef.id);
      txtPost.value = "";
+     txtTitle.value = "";
      window.location.replace('#home2');
    })
    .catch(function (error) {
@@ -250,49 +283,17 @@ console.log(authorUid);
 
 
 /*leer documento firestone*/
-// var showPost = document.getElementById('showPost');
-// db.collection("posts").onSnapshot((querySnapshot) => {
-//   showPost.innerHTML= "";
-// let uidOfUser = localStorage.getItem('useruid')
-//   querySnapshot.forEach(function(doc) {
-//     // doc.data() is never undefined for query doc snapshots
-//       //obtiene datos de firestore y los pinta en tiempo real
-//       showPost.innerHTML += `
-//       <div>
-//         <p>${doc.data().post}</p>
-//       </div>` 
-//       if(uidOfUser == doc.data().authoruid) {
-//         showPost.innerHTML += `
-//         <div>
-//         <button onclick="removePost('${doc.id}')">Eliminar</button>
-//         <button onclick="editPost('${doc.id}', '${doc.data().post}')">Editar</button>
-//       </div>` 
-//       }
-//     });
-// });
-
 var showPost = document.getElementById('container-feed-news');
 db.collection("posts").onSnapshot((querySnapshot) => {
 showPost.innerHTML= "";
 let uidOfUser = localStorage.getItem('useruid')
 querySnapshot.forEach(function(doc) {
+
   // doc.data() is never undefined for query doc snapshots
     //obtiene datos de firestore y los pinta en tiempo real
     if(uidOfUser == doc.data().authoruid) {
+      console.log(doc.id)
       showPost.innerHTML += `
-      <!-- Dropdown Trigger -->
-      <button class='dropdown-trigger btn' href='#' data-target='dropdown-${doc.id}'><i class='material-icons right'>more_horiz</i>menu</button>
-      <!-- Dropdown Structure -->
-      <ul id='dropdown-${doc.id}' class='dropdown-content'>
-      <li><a class="modal-trigger" data-target="idModal" onclick="editPost('${doc.id}', '${doc.data().post}')">Editar</a>
-      <li><a class="modal-trigger" data-target="idModalDelete">Eliminar</a>
-        <li><a href='#!'>one</a></li>
-        <li><a href='#!'>two</a></li>
-        <li class='divider' tabindex='-1'></li>
-        <li><a >three</a></li>
-        <li><a href='#!'><i class='material-icons'>view_module</i>four</a></li>
-        <li><a href='#!'><i class='material-icons'>cloud</i>five</a></li>
-      </ul>
       <div class="card">
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4">${doc.data().title}<i class="material-icons right">more_vert</i></span>
@@ -302,10 +303,12 @@ querySnapshot.forEach(function(doc) {
       <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
       <a class="modal-trigger" data-target="idModalDelete">Eliminar</a>
       <a class="modal-trigger" data-target="idModal" onclick="editPost('${doc.id}', '${doc.data().post}')">Editar</a>
+     <a id="${doc.id}" class="modal-close mi-clase" onclick="removePost('${doc.id}')">Aceptar</a>
       </div>
-    </div>`
+    </div>
+     `
     interactividad()
-    removePost(doc.id)
+    // removePost(doc.id)
 } else {
     showPost.innerHTML += `
     <div class="card">
@@ -315,8 +318,26 @@ querySnapshot.forEach(function(doc) {
     </div>
   </div>`
  }
- });
+
+//  const btnDeletePost = document.getElementById(doc.id);
+//  function removePost(id){
+  // const btnDeletePost = document.getElementById('delete-post');
+  // btnDeletePost.addEventListener('click' , function() {
+    //   console.log(btnDeletePost.id)
+    //  db.collection("posts").doc(id).delete().then(function() {
+      //    console.log("Document successfully deleted!");
+//  }).catch(function(error) {
+//    console.error("Error removing document: ", error);
+//  })
+// })
+// }
 });
+const buttons = document.getElementsByClassName('mi-clase')
+console.log(buttons)
+
+});
+
+
 /*editar post*/
 const btnEditPost = document.getElementById('save-post');
 const txtPostEdit = document.getElementById('txtPostEdit');
@@ -325,18 +346,20 @@ function editPost(id, post){
   console.log("id:", id)
   console.log("post:", post)
  txtPostEdit.value = post
+
  
  console.log(txtPost.value)
  btnEditPost.addEventListener('click', function(){
 
    var postEdited = db.collection("posts").doc(id);
    var post = txtPostEdit.value
-console.log(postEdited)
+  console.log(postEdited)
    return postEdited.update({
      post: post
    })
    .then(function() {
        console.log("Document successfully updated!");
+       txtPostEdit.value = ""
    })
    .catch(function(error) {
        // The document probably doesn't exist.
@@ -347,12 +370,9 @@ console.log(postEdited)
 
 /*eliminar post*/
 function removePost(id){
-  const btnDeletePost = document.getElementById('delete-post');
-  btnDeletePost.addEventListener('click' , function() {
  db.collection("posts").doc(id).delete().then(function() {
    console.log("Document successfully deleted!");
  }).catch(function(error) {
    console.error("Error removing document: ", error);
  })
-})
-}
+ }
