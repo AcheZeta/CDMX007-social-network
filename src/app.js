@@ -6,136 +6,67 @@ const txtName = document.getElementById('name');
 const txtUserName = document.getElementById('user-name');
 const txtBirthday = document.getElementById('birthday');
 const btnSaveProfile = document.getElementById('save-profile');
-<<<<<<< HEAD
-/*Inicializacion para enlazar el proyecto a firebase */
-var config = {
+const nav = document.getElementById('top-nav')
+
+/*Inicializacion para enlazar el proyecto a firebase*/
+let config = {
   apiKey: "AIzaSyA-br4fjgN3TqUQgfE-Y2eGzfdajBuwa_Q",
   authDomain: "red-social-laboratoriamx.firebaseapp.com",
   databaseURL: "https://red-social-laboratoriamx.firebaseio.com",
   projectId: "red-social-laboratoriamx",
   storageBucket: "red-social-laboratoriamx.appspot.com",
   messagingSenderId: "727465925051"
-=======
-const nav = document.getElementById('top-nav')
-
-/*Inicializacion para enlazar el proyecto a firebase*/
-let config = {
- apiKey: "AIzaSyA-br4fjgN3TqUQgfE-Y2eGzfdajBuwa_Q",
- authDomain: "red-social-laboratoriamx.firebaseapp.com",
- databaseURL: "https://red-social-laboratoriamx.firebaseio.com",
- projectId: "red-social-laboratoriamx",
- storageBucket: "red-social-laboratoriamx.appspot.com",
- messagingSenderId: "727465925051"
->>>>>>> upstream/master
 };
 firebase.initializeApp(config);
 /*nombre a la base de datos*/
 let db = firebase.firestore();
 /* observador*/
 function watcher() {
-<<<<<<< HEAD
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      console.log('usuario activo');
-      //  console.log(user)
-      loged(user);
-      window.location.href = '#home2'
-      content.classList.remove('hide');
+      console.log('inicia sesion verificando tu correo');
+      //  loged(user);
+      //  content.classList.remove('hide');
+      window.location.replace('#home2');
       if (user.emailVerified == true) {
-        //  window.location.replace('main.html');
-        //  console.log('main.html')
-
+        nav.classList.remove('hide');
       }
       if (user.emailVerified == false) {
-        //  console.log('verifica tu correo')
+        window.location.replace('#home');
       }
-      // User is signed in.
-      var displayName = user.displayName;
-      var email = user.email;
-      //  console.log(user.emailVerified);
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
+      let displayName = user.displayName;
+      let email = user.email;
+      let emailVerified = user.emailVerified;
+      let photoURL = user.photoURL;
+      let isAnonymous = user.isAnonymous;
+      let uid = user.uid;
       localStorage.setItem('useruid', uid)
-      var providerData = user.providerData;
-      // ...
+      let providerData = user.providerData;
     } else {
-      // navMenu.classList.add('hide');
       window.location.href = '#home';
       const content = document.getElementById('content')
       const navmenu = document.getElementById('navmenu')
       content.classList.add('hide');
-      // //     // User is signed out.
-      // ...
+      nav.classList.add('hide');
       console.log('no existe usuario activo');
-      //container.innerHTML = ``;
     }
   });
 }
 watcher();
 
-
 /*para crear usuario*/
 btnSingUp.addEventListener('click', e => {
   const email = txtEmail.value;
-  //  console.log(email)
   const pass = txtPassword.value;
   firebase.auth().createUserWithEmailAndPassword(email, pass)
-    .then(function () {
+    .then(() => {
       verify()
       saveData()
     })
-    .catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
+    .catch((error) => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
     })
-=======
- firebase.auth().onAuthStateChanged(function (user) {
-   if (user) {
-    console.log('inicia sesion verificando tu correo');
-    //  loged(user);
-    //  content.classList.remove('hide');
-    window.location.replace('#home2');
-     if(user.emailVerified == true) {
-      nav.classList.remove('hide');
-    }
-     if(user.emailVerified == false) {
-      window.location.replace('#home');
-     }
-     let displayName = user.displayName;
-     let email = user.email;
-     let emailVerified = user.emailVerified;
-     let photoURL = user.photoURL;
-     let isAnonymous = user.isAnonymous;
-     let uid = user.uid;
-     localStorage.setItem('useruid', uid)
-     let providerData = user.providerData;
-   } else {
-     window.location.href = '#home';
-     const content = document.getElementById('content')
-     const navmenu = document.getElementById('navmenu')
-     content.classList.add('hide');
-     nav.classList.add('hide');
-     console.log('no existe usuario activo');
-   }
- });
-} watcher();
- 
-/*para crear usuario*/
-btnSingUp.addEventListener('click', e => {
- const email = txtEmail.value;
- const pass = txtPassword.value;
- firebase.auth().createUserWithEmailAndPassword(email, pass)
-   .then( () => {
-     verify()
-     saveData()
-   })
-   .catch( (error) => {
-     let errorCode = error.code;
-     let errorMessage = error.message;
-   })
->>>>>>> upstream/master
 });
 /*Guarda la informacion en la bd users*/
 function saveData() {
@@ -166,24 +97,13 @@ function saveData() {
 }
 /* Verificacion de correo electronico*/
 function verify() {
-<<<<<<< HEAD
   var user = firebase.auth().currentUser;
   user.sendEmailVerification().then(function () {
-    // Email sent.
     //  console.log('sending email');
   }).catch(function (error) {
     // An error happened.
     //  console.log(error);
   });
-=======
- var user = firebase.auth().currentUser;
- user.sendEmailVerification().then(function () {
-  //  console.log('sending email');
- }).catch(function (error) {
-   // An error happened.
-  //  console.log(error);
- });
->>>>>>> upstream/master
 }
 
 /* boton para iniciar sesión*/
@@ -239,24 +159,14 @@ const btnLogout = document.getElementById('btnLogout');
 function logOut() {
   //pop up de confirmación
   firebase.auth().signOut()
-<<<<<<< HEAD
     .then(function () {
       //  console.log('saliendo..')
       window.location.href = '#home'
+      watcher()
     })
     .catch(function (error) {
       //  console.log(error)
     })
-=======
-  .then(function () {
-    //  console.log('saliendo..')
-    window.location.href = '#home'
-    watcher()
-   })
-   .catch(function (error) {
-    //  console.log(error)
-   })
->>>>>>> upstream/master
 }
 
 // function nav() {
@@ -364,44 +274,44 @@ btnMas.addEventListener('click', () => {
 
 
 /*Guardar la informacion en la bd post PUBLICAR*/
- const btnPost = document.getElementById('btn-post')
- btnPost.addEventListener('click', saveDataInPostColection => {
-   const privacy = document.getElementById("select-privacy").value //valor del select publico1 privado2
-   console.log(privacy)
+const btnPost = document.getElementById('btn-post')
+btnPost.addEventListener('click', saveDataInPostColection => {
+  const privacy = document.getElementById("select-privacy").value //valor del select publico1 privado2
+  console.log(privacy)
   const txtPost = document.getElementById('txtPost')
   const txtTitle = document.getElementById('input_text')
   var post = txtPost.value;
   var title = txtTitle.value;
   const authorUid = firebase.auth().currentUser;
- console.log(authorUid);
- if(privacy == 1 ){ //condicional si es 1 el campo public será true y eso se imprimirá en el feed
-  db.collection("posts").add({
-    authoruid: authorUid.uid,
-    nick: authorUid.email,
-    title: title,
-    date: "",    
-    post: post,
-    public: true
-  })
-    .then(function (docRef) {
-      console.log("Document written with ID: ", docRef.id);
-      txtPost.value = "";
-      txtTitle.value = "";
-      privacy.value = "";
-      window.location.replace('#home2');
-    })
-    .catch(function (error) {
-      console.error("Error adding document: ", error);
-    });
+  console.log(authorUid);
+  if (privacy == 1) { //condicional si es 1 el campo public será true y eso se imprimirá en el feed
+    db.collection("posts").add({
+        authoruid: authorUid.uid,
+        nick: authorUid.email,
+        title: title,
+        date: "",
+        post: post,
+        public: true
+      })
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        txtPost.value = "";
+        txtTitle.value = "";
+        privacy.value = "";
+        window.location.replace('#home2');
+      })
+      .catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
   } else { //si no es true el campo public es false
     db.collection("posts").add({
-      authoruid: authorUid.uid,
-      nick: authorUid.email,
-      title: title,
-      date: "",    
-      post: post,
-      public: false
-    })
+        authoruid: authorUid.uid,
+        nick: authorUid.email,
+        title: title,
+        date: "",
+        post: post,
+        public: false
+      })
       .then(function (docRef) {
         console.log("Document written with ID: ", docRef.id);
         txtPost.value = "";
@@ -413,17 +323,17 @@ btnMas.addEventListener('click', () => {
         console.error("Error adding document: ", error);
       });
   }
-  })
+})
 
 /*leer documento firestone*/
 var showPost = document.getElementById('container-feed-news');
 db.collection("posts").onSnapshot((querySnapshot) => {
-showPost.innerHTML= "";
-let uidOfUser = localStorage.getItem('useruid')
-querySnapshot.forEach(function(doc) {
-  // doc.data() is never undefined for query doc snapshots
+  showPost.innerHTML = "";
+  let uidOfUser = localStorage.getItem('useruid')
+  querySnapshot.forEach(function (doc) {
+    // doc.data() is never undefined for query doc snapshots
     //obtiene datos de firestore y los pinta en tiempo real
-    if(doc.data().public == true && uidOfUser == doc.data().authoruid) { //condicional busca los public y los que tienen el mismo iud para imprimirlos con permisos para editar y eliminar
+    if (doc.data().public == true && uidOfUser == doc.data().authoruid) { //condicional busca los public y los que tienen el mismo iud para imprimirlos con permisos para editar y eliminar
       // console.log(doc.id)
       showPost.innerHTML += `
       <div class="card">
@@ -438,10 +348,10 @@ querySnapshot.forEach(function(doc) {
       </div>
     </div>
      `
-    interactividad()
-    // removePost(doc.id)
-} else if (doc.data().public == true) { //otro condiconal para solo imprimir los publicos sin permisos
-    showPost.innerHTML += `
+      interactividad()
+      // removePost(doc.id)
+    } else if (doc.data().public == true) { //otro condiconal para solo imprimir los publicos sin permisos
+      showPost.innerHTML += `
     <div class="card">
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4">${doc.data().title}</span>
@@ -454,6 +364,7 @@ querySnapshot.forEach(function(doc) {
 });
 /*EDITAR PUBLICACION "GUARDAR"*/
 const btnEdit = document.getElementById('btn-edit');
+
 function edit(id, title, post) {
   alert('ok');
   btnPost.classList.add('mi-hide');
@@ -462,47 +373,47 @@ function edit(id, title, post) {
   document.getElementById('txtPost').value = post
   document.getElementById('input_text').value = title
   btnEdit.onclick = function () {
-    
-      var updatePost = db.collection('posts').doc(id);
-      var newTitle = document.getElementById('input_text').value;
-      var newPost = document.getElementById('txtPost').value;
-      return updatePost.update({
-          title: newTitle,
-          post: newPost,
-      }).then(function () {
-          console.log('Registro actualizado correctamente');
-          document.getElementById('txtPost').value = '',
-              document.getElementById('input_text').value = '',
-              window.location.replace('#home2')
-      }).catch(function (error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert('Error de codigo:\n ' + errorCode + ' Mensaje de Error:\n ' + errorMessage);
-      })
+
+    var updatePost = db.collection('posts').doc(id);
+    var newTitle = document.getElementById('input_text').value;
+    var newPost = document.getElementById('txtPost').value;
+    return updatePost.update({
+      title: newTitle,
+      post: newPost,
+    }).then(function () {
+      console.log('Registro actualizado correctamente');
+      document.getElementById('txtPost').value = '',
+        document.getElementById('input_text').value = '',
+        window.location.replace('#home2')
+    }).catch(function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert('Error de codigo:\n ' + errorCode + ' Mensaje de Error:\n ' + errorMessage);
+    })
   }
 }
 
 /*eliminar post*/
 function removePost(id) {
   confirm('¿Quieres eliminar esta publicación?')
- db.collection("posts").doc(id).delete().then(function() {
-   console.log("Document successfully deleted!");
- }).catch(function(error) {
-   console.error("Error removing document: ", error);
- })
- }
+  db.collection("posts").doc(id).delete().then(function () {
+    console.log("Document successfully deleted!");
+  }).catch(function (error) {
+    console.error("Error removing document: ", error);
+  })
+}
 
- //IMPRIMIR PUBLICACIONES PRIVADAS EN EL PERFIL DEL USUARIO//
+//IMPRIMIR PUBLICACIONES PRIVADAS EN EL PERFIL DEL USUARIO//
 
 var personalWall = document.getElementById('personalWall');
 db.collection("posts").onSnapshot((querySnapshot) => {
-personalWall.innerHTML= "";
-let uidOfUser = localStorage.getItem('useruid')
-querySnapshot.forEach(function(doc) {
+  personalWall.innerHTML = "";
+  let uidOfUser = localStorage.getItem('useruid')
+  querySnapshot.forEach(function (doc) {
 
-  // doc.data() is never undefined for query doc snapshots
+    // doc.data() is never undefined for query doc snapshots
     //obtiene datos de firestore y los pinta en tiempo real
-    if(doc.data().public == false && uidOfUser == doc.data().authoruid) {
+    if (doc.data().public == false && uidOfUser == doc.data().authoruid) {
       // console.log(doc.id)
       personalWall.innerHTML += `
       <div class="card">
@@ -517,9 +428,8 @@ querySnapshot.forEach(function(doc) {
       </div>
     </div>
      `
-    interactividad()
-    // removePost(doc.id)
-}
+      interactividad()
+      // removePost(doc.id)
+    }
+  });
 });
-});
- 
