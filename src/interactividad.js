@@ -4,14 +4,20 @@ const interactividad = () => {
  
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems);
-    // console.log('botón init')
- }
-    interactividad()
- 
+
+ } 
+ interactividad()
+
    document.addEventListener('DOMContentLoaded', function() {
        var elems = document.querySelectorAll('.modal');
        var instances = M.Modal.init(elems);
      });
+
+     document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+      });
+
 inter_es = {
     cancel: 'Cancelar',
     clear: 'Limpiar',
@@ -74,16 +80,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var instances = M.Datepicker.init(elems, options);
   });
 
-  /*Cambio de iconos en el nav*/
-  let elementsArray = document.querySelectorAll(".img_nav");
-  elementsArray.forEach(function(elem) {
-      elem.addEventListener("click", ()=> {
-        elementsArray.forEach(function(elemento) {
-          elemento.classList.remove('active2');
-        });
-         elem.classList.add('active2');
-      });
-  });
+ /*Cambio de iconos en el nav*/
+ let elementsArray = document.querySelectorAll(".img_nav");
+ elementsArray.forEach(function(elem) {
+     elem.addEventListener("click", ()=> {
+       elementsArray.forEach(function(elemento) {
+         elemento.classList.remove('active2');
+       });
+        elem.classList.add('active2');
+     });
+ });
 
 
 
