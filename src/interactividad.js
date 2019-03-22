@@ -4,7 +4,7 @@ const interactividad = () => {
  
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems);
-    console.log('botón init')
+    // console.log('botón init')
  }
     interactividad()
  
@@ -85,10 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 
-  /* ocultar menu el desktop */
-//   const navMenu = document.getElementById('top-nav');
-//   navMenu.addEventListener('click', () => {
-//     navMenu.classList.add('hide');
-//   });
+
 
    

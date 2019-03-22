@@ -23,7 +23,7 @@ function watcher() {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       console.log('usuario activo');
-      console.log(user)
+      //  console.log(user)
       loged(user);
       window.location.href = '#home2'
       content.classList.remove('hide');
@@ -33,12 +33,12 @@ function watcher() {
 
       }
       if (user.emailVerified == false) {
-        console.log('verifica tu correo')
+        //  console.log('verifica tu correo')
       }
       // User is signed in.
       var displayName = user.displayName;
       var email = user.email;
-      console.log(user.emailVerified);
+      //  console.log(user.emailVerified);
       var emailVerified = user.emailVerified;
       var photoURL = user.photoURL;
       var isAnonymous = user.isAnonymous;
@@ -65,7 +65,7 @@ watcher();
 /*para crear usuario*/
 btnSingUp.addEventListener('click', e => {
   const email = txtEmail.value;
-  console.log(email)
+  //  console.log(email)
   const pass = txtPassword.value;
   firebase.auth().createUserWithEmailAndPassword(email, pass)
     .then(function () {
@@ -94,14 +94,14 @@ function saveData() {
       posts: []
     })
     .then(function (docRef) {
-      console.log("Document written");
+      //  console.log("Document written");
       txtEmail.value = "";
       txtPassword.value = "";
       txtUserName.value = "";
       txtBirthday.value = "";
     })
     .catch(function (error) {
-      console.error("Error adding document: ", error);
+      //  console.error("Error adding document: ", error);
     });
 }
 /* Verificacion de correo electronico*/
@@ -109,10 +109,10 @@ function verify() {
   var user = firebase.auth().currentUser;
   user.sendEmailVerification().then(function () {
     // Email sent.
-    console.log('sending email');
+    //  console.log('sending email');
   }).catch(function (error) {
     // An error happened.
-    console.log(error);
+    //  console.log(error);
   });
 }
 
@@ -124,13 +124,13 @@ btnLogin.addEventListener('click', e => {
 
   const email2 = txtEmail2.value;
   const pass2 = textPassword2.value;
-  console.log(email2, pass2);
+  //  console.log(email2, pass2);
 
   firebase.auth().signInWithEmailAndPassword(email2, pass2).catch(function (error) {
     var errorCode = error.code;
     var errorMessage = error.message;
-    console.log(errorCode);
-    console.log(errorMessage);
+    //  console.log(errorCode);
+    //  console.log(errorMessage);
     //inner contraseña o correo invalido********
   });
 });
@@ -170,11 +170,11 @@ function logOut() {
   //pop up de confirmación
   firebase.auth().signOut()
     .then(function () {
-      console.log('saliendo..')
+      //  console.log('saliendo..')
       window.location.href = '#home'
     })
     .catch(function (error) {
-      console.log(error)
+      //  console.log(error)
     })
 }
 
@@ -213,9 +213,9 @@ function logOut() {
 /*función para borrar documentos*/
 function removeUsers(id) {
   db.collection("users").doc(id).delete().then(function () {
-    console.log("Document successfully deleted!");
+    //  console.log("Document successfully deleted!");
   }).catch(function (error) {
-    console.error("Error removing document: ", error);
+    //  console.error("Error removing document: ", error);
   });
 }
 /*función para editar perfil*/
@@ -246,16 +246,37 @@ function editUsers(id, email, name, user, birthday) {
         birthday: birthday
       })
       .then(function () {
-        console.log("Document successfully updated!");
+        //  console.log("Document successfully updated!");
       })
       .catch(function (error) {
         // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
+        //  console.error("Error updating document: ", error);
       });
   })
 }
 
-//Agregar post
+
+
+//  const btnDeletePost = document.getElementById(doc.id);
+//  function removePost(id){
+// const btnDeletePost = document.getElementById('delete-post');
+// btnDeletePost.addEventListener('click' , function() {
+//   console.log(btnDeletePost.id)
+//  db.collection("posts").doc(id).delete().then(function() {
+//    console.log("Document successfully deleted!");
+//  }).catch(function(error) {
+//    console.error("Error removing document: ", error);
+//  })
+// })
+// }
+
+// const buttons = document.getElementsByClassName('mi-clase')
+// console.log(buttons)
+
+
+
+
+
 /*Guarda la informacion en la bd post*/
 const btnPost = document.getElementById('btn-post')
 btnPost.addEventListener('click', saveDataInPostColection => {
@@ -270,7 +291,6 @@ btnPost.addEventListener('click', saveDataInPostColection => {
       nick: authorUid.email,
       title: title,
       date: "",
-      like: 0,
       post: post
     })
     .then(function (docRef) {
@@ -284,8 +304,6 @@ btnPost.addEventListener('click', saveDataInPostColection => {
     });
 })
 
-
-
 /*leer documento firestone*/
 var showPost = document.getElementById('container-feed-news');
 db.collection("posts").onSnapshot((querySnapshot) => {
@@ -296,7 +314,7 @@ db.collection("posts").onSnapshot((querySnapshot) => {
     // doc.data() is never undefined for query doc snapshots
     //obtiene datos de firestore y los pinta en tiempo real
     if (uidOfUser == doc.data().authoruid) {
-      console.log(doc.id)
+      // console.log(doc.id)
       showPost.innerHTML += `
       <div class="card">
       <div class="card-content">
@@ -305,8 +323,7 @@ db.collection("posts").onSnapshot((querySnapshot) => {
       </div>
       <div class="card-reveal">
       <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-      <a class="modal-trigger" data-target="idModalDelete">Eliminar</a>
-      <a class="modal-trigger" data-target="idModal" onclick="editPost('${doc.id}', '${doc.data().post}')">Editar</a>
+      <a onclick="edit('${doc.id}', '${doc.data().title}', '${doc.data().post}')">Editar</a>
      <a id="${doc.id}" class="modal-close mi-clase" onclick="removePost('${doc.id}')">Aceptar</a>
       </div>
     </div>
@@ -320,70 +337,56 @@ db.collection("posts").onSnapshot((querySnapshot) => {
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4">${doc.data().title}</span>
       <p>${doc.data().post}</p>
-      <a id="like" class="like waves-effect waves-light btn">like Me</a>
+      <a id="${doc.id}" data-like="countlike" class="like waves-effect waves-light btn">like Me</a>
     </div>
   </div>`
     }
-
-    //  const btnDeletePost = document.getElementById(doc.id);
-    //  function removePost(id){
-    // const btnDeletePost = document.getElementById('delete-post');
-    // btnDeletePost.addEventListener('click' , function() {
-    //   console.log(btnDeletePost.id)
-    //  db.collection("posts").doc(id).delete().then(function() {
-    //    console.log("Document successfully deleted!");
-    //  }).catch(function(error) {
-    //    console.error("Error removing document: ", error);
-    //  })
-    // })
-    // }
   });
-  const buttons = document.getElementsByClassName('mi-clase')
-  console.log(buttons)
-
 });
 
 /*Like IT*/
 const likebttn = document.getElementsByClassName("like")
 console.log(likebttn)
-likebttn.addEventListener('click', () => {
-  alert('like')
-})
-
-
-
-/*editar post*/
-const btnEditPost = document.getElementById('save-post');
-const txtPostEdit = document.getElementById('txtPostEdit');
-
-function editPost(id, post) {
-  console.log("id:", id)
-  console.log("post:", post)
-  txtPostEdit.value = post
-
-
-  console.log(txtPost.value)
-  btnEditPost.addEventListener('click', function () {
-
-    var postEdited = db.collection("posts").doc(id);
-    var post = txtPostEdit.value
-    console.log(postEdited)
-    return postEdited.update({
-        post: post
-      })
-      .then(function () {
-        console.log("Document successfully updated!");
-        txtPostEdit.value = ""
-      })
-      .catch(function (error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      });
+for (let i = 0; i < likebttn.length; i++)
+  likebttn[i].addEventListener('click', (e) => {
+    alert("click")
+    // let likecomment = likebttn[i].id;
+    // let countLike = e.target.dataset.like;
+    // countLike++;
+    console.log(countLike);
+    console.log(likecomment)
   })
+
+
+function edit(id, title, post) {
+  window.location.replace('#list');
+  document.getElementById('txtPost').value = post
+  document.getElementById('input_text').value = title
+  let btnEdit = document.getElementById('btn-edit')
+  btnEdit.onclick = function () {
+    var updatePost = db.collection('posts').doc(id);
+    var newTitle = document.getElementById('input_text').value;
+    var newPost = document.getElementById('txtPost').value;
+    return updatePost.update({
+      title: newTitle,
+      post: newPost,
+    }).then(function () {
+      console.log('Registro actualizado correctamente');
+      document.getElementById('txtPost').value = '',
+        document.getElementById('input_text').value = '',
+        console.log('Registro actualizado correctamente');
+      window.location.replace('#home2')
+    }).catch(function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert('Error de codigo:\n ' + errorCode + ' Mensaje de Error:\n ' + errorMessage);
+    })
+  }
 }
 
 /*eliminar post*/
 function removePost(id) {
+  confirm('¿Quieres eliminar esta publicación?')
   db.collection("posts").doc(id).delete().then(function () {
     console.log("Document successfully deleted!");
   }).catch(function (error) {
